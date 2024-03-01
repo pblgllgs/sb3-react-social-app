@@ -1,8 +1,11 @@
 package com.pblgllgs.socialapp.exception;
 
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -60,5 +63,79 @@ public class GlobalHandlerException {
                 LocalDateTime.now()
         );
         return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCredentialsException(
+            InvalidCredentialsException e,
+            HttpServletRequest request
+    ) {
+        ErrorResponse ErrorResponse = new ErrorResponse(
+                request.getRequestURI(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                HttpStatus.UNAUTHORIZED.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(ErrorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(InvalidJwtTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidJwtTokenException(
+            InvalidJwtTokenException e,
+            HttpServletRequest request
+    ) {
+        ErrorResponse ErrorResponse = new ErrorResponse(
+                request.getRequestURI(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(ErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidJwtTokenException(
+            MalformedJwtException e,
+            HttpServletRequest request
+    ) {
+        ErrorResponse ErrorResponse = new ErrorResponse(
+                request.getRequestURI(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(ErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidJwtTokenException(
+            UsernameNotFoundException e,
+            HttpServletRequest request
+    ) {
+        ErrorResponse ErrorResponse = new ErrorResponse(
+                request.getRequestURI(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                HttpStatus.NOT_FOUND.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
+            BadCredentialsException e,
+            HttpServletRequest request
+    ) {
+        ErrorResponse ErrorResponse = new ErrorResponse(
+                request.getRequestURI(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                HttpStatus.FORBIDDEN.value(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(ErrorResponse, HttpStatus.FORBIDDEN);
     }
 }

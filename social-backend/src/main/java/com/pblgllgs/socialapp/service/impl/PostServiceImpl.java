@@ -86,7 +86,9 @@ public class PostServiceImpl implements PostService {
             user.getSavedPost().remove(post);
         } else {
             user.getSavedPost().add(post);
+
         }
+
         userRepository.save(user);
         return post;
 

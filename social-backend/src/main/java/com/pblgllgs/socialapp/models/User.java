@@ -6,6 +6,7 @@ package com.pblgllgs.socialapp.models;
  *
  */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class User {
     private String email;
     private String password;
     private String gender;
-    @JsonIgnore
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tbl_users_posts",

@@ -26,7 +26,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @Value("${messages.controller.user.deleted.success}")
+    @Value("${messages.controller.user.deleted-success}")
     private String messageDeletedSuccess;
 
     @GetMapping

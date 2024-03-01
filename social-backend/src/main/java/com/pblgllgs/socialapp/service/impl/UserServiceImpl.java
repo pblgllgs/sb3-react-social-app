@@ -16,10 +16,10 @@ import com.pblgllgs.socialapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,15 +30,17 @@ public class UserServiceImpl implements UserService {
     @Value("${messages.service.user.not-found}")
     private String messageUserNotFound;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(UserDefaultDto userDto) {
-        Optional<User> userFound = userRepository.findByEmail(userDto.getEmail());
-        if (userFound.isPresent()) {
+        User userFound = userRepository.findByEmail(userDto.getEmail());
+        if (userFound != null) {
             throw new UserAlreadyExistsException(messageEmailAlreadyExists + userDto.getEmail());
         }
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(user);
     }
 
@@ -70,7 +72,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException(messageEmailAlreadyExists + email));
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException(messageEmailAlreadyExists + email);
+        }
+        return user;
     }
 
     @Override

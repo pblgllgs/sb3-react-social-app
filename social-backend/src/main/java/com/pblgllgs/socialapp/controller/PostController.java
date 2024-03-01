@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
 
-    @Value("${messages.controller.post.deleted.success}")
+    @Value("${messages.controller.post.deleted-success}")
     private String messageDeletedSuccess;
     private final PostService postService;
 
