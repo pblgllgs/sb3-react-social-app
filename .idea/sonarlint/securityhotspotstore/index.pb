@@ -17,14 +17,8 @@ Wsocial-backend/src/main/java/com/pblgllgs/socialapp/security/SecurityConfigurat
 Usocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/UserServiceImpl.java,d\9\d9ef63bfaf948956b5ff8818a7cf13670c6ba557
 ‚
 Rsocial-backend/src/main/java/com/pblgllgs/socialapp/repository/UserRepository.java,1\6\1628b0bc36ade63d1829c9d8a7d59e2514521472
-~
-Nsocial-backend/src/main/java/com/pblgllgs/socialapp/security/jwtValidator.java,8\3\8369e279ebb8ae5fbdebde3954620e79e7332593
-~
-Nsocial-backend/src/main/java/com/pblgllgs/socialapp/security/JwtValidator.java,b\c\bccfeef8e5158955f4ab761d89f29c6e096cc3a3
 }
 Msocial-backend/src/main/java/com/pblgllgs/socialapp/security/JwtConstant.java,6\e\6eac39c9bdb9c741332d6fd30a944d94fb9b54ae
-}
-Msocial-backend/src/main/java/com/pblgllgs/socialapp/security/JwtProvider.java,d\0\d0e1b81a56ae49bb6cefb799e83793c498bc01aa
 ‚
 Rsocial-backend/src/main/java/com/pblgllgs/socialapp/controller/AuthController.java,a\e\aeafa79ca75f35cba7afa42f97e66ea46452ead6
 |
@@ -61,5 +55,3 @@ Ysocial-backend/src/main/java/com/pblgllgs/socialapp/exception/GlobalHandlerExce
 Lsocial-backend/src/main/java/com/pblgllgs/socialapp/security/JwtService.java,c\5\c578f0230eb6d0594f5cab77072d1389adb20831
 ‚
 Rsocial-backend/src/main/java/com/pblgllgs/socialapp/repository/PostRepository.java,e\0\e0e6abf8897c0f26711140cc53e219e2e9d4bed0
-Œ
-\social-backend/src/main/java/com/pblgllgs/socialapp/exception/UsernameNotFoundException.java,2\5\2530b06d718456863d2b0a1d8824234c512deb57

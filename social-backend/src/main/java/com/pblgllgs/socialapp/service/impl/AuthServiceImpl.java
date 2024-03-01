@@ -6,7 +6,6 @@ package com.pblgllgs.socialapp.service.impl;
  *
  */
 
-import com.pblgllgs.socialapp.exception.InvalidCredentialsException;
 import com.pblgllgs.socialapp.exception.UserAlreadyExistsException;
 import com.pblgllgs.socialapp.models.User;
 import com.pblgllgs.socialapp.models.dto.AuthResponseDto;
@@ -29,8 +28,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -38,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${messages.service.user.already-exists}")
     private String messageEmailAlreadyExists;
-    @Value("${messages.services.user.create-success}")
+    @Value("${messages.service.user.create-success}")
     private String messageUserSuccessfullyCreated;
     @Value("${messages.service.auth.password-not-matches}")
     private String messageAuthInvalidCredentials;
@@ -71,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponseDto login(LoginRequestDto loginRequestDto) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequestDto.email());
-        if (!passwordEncoder.matches(loginRequestDto.password(),userDetails.getPassword())){
+        if (!passwordEncoder.matches(loginRequestDto.password(), userDetails.getPassword())) {
             throw new BadCredentialsException(messageAuthInvalidCredentials);
         }
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
