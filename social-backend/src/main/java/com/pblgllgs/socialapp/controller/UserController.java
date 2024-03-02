@@ -7,6 +7,7 @@ import com.pblgllgs.socialapp.models.dto.UserUpdateDto;
 import com.pblgllgs.socialapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,12 +45,12 @@ public class UserController {
         return new ResponseEntity<>(userService.registerUser(userDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping
     public ResponseEntity<User> updateUser(
             @RequestBody UserUpdateDto userDto,
-            @PathVariable("userId") Integer userId
+            @RequestHeader("Authorization") String  jwt
     ) {
-        return new ResponseEntity<>(userService.updateUser(userDto, userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.updateUser(userDto, jwt), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -64,10 +65,15 @@ public class UserController {
         return new ResponseEntity<>(userService.searchUser(query), HttpStatus.OK);
     }
 
-    @PutMapping("/{userId1}/follow/{userId2}")
+    @PutMapping("/follow/{userId}")
     public ResponseEntity<User> followUserHandler(
-            @PathVariable("userId1") Integer userId1,
-            @PathVariable("userId2") Integer userId2) {
-        return new ResponseEntity<>(userService.followerToFollowing(userId1, userId2), HttpStatus.OK);
+            @RequestHeader("Authorization") String  jwt,
+            @PathVariable("userId") Integer userId) {
+        return new ResponseEntity<>(userService.followerToFollowing(userId,jwt), HttpStatus.OK);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<User> getUserFromToken(@RequestHeader("Authorization") String  jwt){
+        return new ResponseEntity<>(userService.getUserFromToken(jwt), HttpStatus.OK);
     }
 }

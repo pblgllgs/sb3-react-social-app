@@ -9,7 +9,6 @@ package com.pblgllgs.socialapp.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -35,11 +34,11 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("/api/1.0/posts/**").authenticated()
-                                .requestMatchers("/api/1.0/users/**").authenticated()
+                                auth
+                                        .requestMatchers("/api/1.0/posts/**").authenticated()
+                                        .requestMatchers("/api/1.0/users/**").authenticated()
 //                                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                                .anyRequest().permitAll()
+                                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

@@ -13,6 +13,7 @@ import com.pblgllgs.socialapp.models.User;
 import com.pblgllgs.socialapp.models.dto.PostDefaultDto;
 import com.pblgllgs.socialapp.repository.PostRepository;
 import com.pblgllgs.socialapp.repository.UserRepository;
+import com.pblgllgs.socialapp.security.JwtService;
 import com.pblgllgs.socialapp.service.PostService;
 import com.pblgllgs.socialapp.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +40,8 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
 
     @Override
-    public Post createPost(PostDefaultDto postDto, Integer userId) {
-        User user = userService.findUserById(userId);
+    public Post createPost(PostDefaultDto postDto, String jwt) {
+        User user = userService.getUserFromToken(jwt);
         Post newPost = Post.builder()
                 .caption(postDto.getCaption())
                 .image(postDto.getImage())
@@ -54,9 +55,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePost(Integer postId, Integer userId) {
+    public void deletePost(Integer postId, String jwt) {
+        User user = userService.getUserFromToken(jwt);
         Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException(messageUserNotFound + postId));
-        if (!post.getUser().getId().equals(userId)) {
+        if (!post.getUser().getId().equals(user.getId())) {
             throw new OperationDeniedException(messageOperationDenied);
         }
         postRepository.deleteById(postId);
@@ -78,9 +80,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post savedPost(Integer postId, Integer userId) {
+    public Post savedPost(Integer postId, String jwt) {
+        User user = userService.getUserFromToken(jwt);
         Post post = findPostById(postId);
-        User user = userService.findUserById(userId);
 
         if (user.getSavedPost().contains(post)) {
             user.getSavedPost().remove(post);
@@ -95,9 +97,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post likePost(Integer postId, Integer userId) {
+    public Post likePost(Integer postId, String jwt) {
+        User user = userService.getUserFromToken(jwt);
         Post post = findPostById(postId);
-        User user = userService.findUserById(userId);
 
         if (post.getLiked().contains(user)) {
             post.getLiked().remove(user);

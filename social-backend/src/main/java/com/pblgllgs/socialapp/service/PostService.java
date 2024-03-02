@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface PostService {
 
-    Post createPost(PostDefaultDto postDto, Integer userId);
-    void deletePost(Integer postId,Integer userId);
+    Post createPost(PostDefaultDto postDto, String jwt);
+    void deletePost(Integer postId,String jwt);
     List<Post> findPostByUserId(Integer userId);
     Post findPostById(Integer postId);
     List<Post> findAllPosts();
-    Post savedPost(Integer postId,Integer userId);
-    Post likePost(Integer postId,Integer userId);
+    Post savedPost(Integer postId,String jwt);
+    Post likePost(Integer postId,String jwt);
 }

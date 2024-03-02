@@ -12,6 +12,8 @@ import com.pblgllgs.socialapp.models.User;
 import com.pblgllgs.socialapp.models.dto.UserDefaultDto;
 import com.pblgllgs.socialapp.models.dto.UserUpdateDto;
 import com.pblgllgs.socialapp.repository.UserRepository;
+import com.pblgllgs.socialapp.security.JwtService;
+import com.pblgllgs.socialapp.service.CustomerUserDetailsService;
 import com.pblgllgs.socialapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
     private String messageUserNotFound;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final CustomerUserDetailsService userDetailsService;
 
     @Override
     public User registerUser(UserDefaultDto userDto) {
@@ -50,8 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserUpdateDto userDto, Integer userId) {
-        User found = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(messageUserNotFound + userId));
+    public User updateUser(UserUpdateDto userDto, String jwt) {
+        User user = getUserFromToken(jwt);
+        User found = userRepository.findById(user.getId())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException(messageUserNotFound + user.getId()
+                        )
+                );
         found.setFirstName(userDto.getFirstName());
         found.setLastName(userDto.getLastName());
         found.setEmail(userDto.getEmail());
@@ -80,20 +89,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User followerToFollowing(Integer userIdFollow, Integer userIdFollowing) {
-        User follower = findUserById(userIdFollow);
+    public User followerToFollowing(Integer userIdFollowing, String jwt) {
+        User reqUser = getUserFromToken(jwt);
         User following = findUserById(userIdFollowing);
 
-        following.getFollowers().add(follower.getId());
-        follower.getFollowings().add(following.getId());
+        following.getFollowers().add(reqUser.getId());
+        reqUser.getFollowings().add(following.getId());
 
-        userRepository.save(follower);
+        userRepository.save(reqUser);
         userRepository.save(following);
-        return follower;
+        return reqUser;
     }
 
     @Override
     public List<User> searchUser(String query) {
         return userRepository.searchUser(query);
+    }
+
+    @Override
+    public User getUserFromToken(String jwt) {
+        String emailFromToken = jwtService.getEmailFromToken(jwt.substring(7));
+        return userRepository.findByEmail(emailFromToken);
     }
 }

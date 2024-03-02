@@ -27,20 +27,20 @@ public class PostController {
     private String messageDeletedSuccess;
     private final PostService postService;
 
-    @PostMapping("/user/{userId}")
+    @PostMapping
     public ResponseEntity<Post> createPost(
             @RequestBody PostDefaultDto postDefaultDto,
-            @PathVariable("userId") Integer userId
+            @RequestHeader("Authorization") String jwt
     ) {
-        return new ResponseEntity<>(postService.createPost(postDefaultDto, userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(postService.createPost(postDefaultDto, jwt), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{postId}/user/{userId}")
-    public ResponseEntity<ApiResponse> delete(
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ApiResponse> deletePost(
             @PathVariable("postId") Integer postId,
-            @PathVariable("userId") Integer userId
+            @RequestHeader("Authorization") String jwt
     ) {
-        postService.deletePost(postId, userId);
+        postService.deletePost(postId, jwt);
         return new ResponseEntity<>(new ApiResponse(messageDeletedSuccess, true), HttpStatus.OK);
     }
 
@@ -51,27 +51,27 @@ public class PostController {
 
     @GetMapping("/user/{userId}/all")
     public ResponseEntity<List<Post>> findById(@PathVariable("userId") Integer userId) {
-        return new ResponseEntity<>(postService.findPostByUserId(userId),HttpStatus.OK);
+        return new ResponseEntity<>(postService.findPostByUserId(userId), HttpStatus.OK);
     }
 
-    @PutMapping("/liked/{postId}/user/{userId}")
+    @PutMapping("/liked/{postId}")
     public ResponseEntity<Post> likedPostHandler(
             @PathVariable("postId") Integer postId,
-            @PathVariable("userId") Integer userId
+            @RequestHeader("Authorization") String jwt
     ) {
-        return new ResponseEntity<>(postService.likePost(postId,userId), HttpStatus.OK);
+        return new ResponseEntity<>(postService.likePost(postId, jwt), HttpStatus.OK);
     }
 
-    @PutMapping("/saved/{postId}/user/{userId}")
+    @PutMapping("/saved/{postId}")
     public ResponseEntity<Post> savedPostHandler(
             @PathVariable("postId") Integer postId,
-            @PathVariable("userId") Integer userId
+            @RequestHeader("Authorization") String jwt
     ) {
-        return new ResponseEntity<>(postService.savedPost(postId,userId), HttpStatus.OK);
+        return new ResponseEntity<>(postService.savedPost(postId, jwt), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> findAll(){
-        return new ResponseEntity<>(postService.findAllPosts(),HttpStatus.OK);
+    public ResponseEntity<List<Post>> findAll() {
+        return new ResponseEntity<>(postService.findAllPosts(), HttpStatus.OK);
     }
 }
