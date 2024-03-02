@@ -26,6 +26,12 @@ public class Reels {
     private String title;
     private String video;
     @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            foreignKey = @ForeignKey(
+                    name = "reel_user_id_fk"
+            )
+    )
     private User user;
 
 }

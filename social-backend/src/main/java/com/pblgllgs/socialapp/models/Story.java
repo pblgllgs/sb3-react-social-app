@@ -25,6 +25,12 @@ public class Story {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            foreignKey = @ForeignKey(
+                    name = "story_user_id_fk"
+            )
+    )
     private User user;
     private String image;
     private String captions;

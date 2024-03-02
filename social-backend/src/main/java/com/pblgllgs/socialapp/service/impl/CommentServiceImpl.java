@@ -10,6 +10,7 @@ import com.pblgllgs.socialapp.exception.ResourceNotFoundException;
 import com.pblgllgs.socialapp.models.Comment;
 import com.pblgllgs.socialapp.models.Post;
 import com.pblgllgs.socialapp.models.User;
+import com.pblgllgs.socialapp.models.dto.CommentRequestDto;
 import com.pblgllgs.socialapp.repository.CommentRepository;
 import com.pblgllgs.socialapp.repository.PostRepository;
 import com.pblgllgs.socialapp.service.CommentService;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +38,13 @@ public class CommentServiceImpl implements CommentService {
     private final PostRepository postRepository;
 
     @Override
-    public Comment createComment(Comment comment, Integer postId, String jwt) {
+    public Comment createComment(CommentRequestDto commentRequestDto, Integer postId, String jwt) {
         User user = userService.getUserFromToken(jwt);
         Post post = postService.findPostById(postId);
         Comment newComment = Comment.builder()
-                .content(comment.getContent())
+                .content(commentRequestDto.content())
                 .createdAt(LocalDateTime.now())
+                .liked(new ArrayList<>())
                 .user(user)
                 .build();
         Comment savedNewComment = commentRepository.save(newComment);

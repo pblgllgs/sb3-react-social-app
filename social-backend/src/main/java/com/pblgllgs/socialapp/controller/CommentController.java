@@ -7,6 +7,7 @@ package com.pblgllgs.socialapp.controller;
  */
 
 import com.pblgllgs.socialapp.models.Comment;
+import com.pblgllgs.socialapp.models.dto.CommentRequestDto;
 import com.pblgllgs.socialapp.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,11 @@ public class CommentController {
 
     @PostMapping("/post/{postId}")
     public ResponseEntity<Comment> saveComment(
-            @RequestBody Comment comment,
+            @RequestBody CommentRequestDto commentRequestDto,
             @PathVariable("postId") Integer postId,
             @RequestHeader("Authorization") String jwt
     ) {
-        return new ResponseEntity<>(commentService.createComment(comment, postId, jwt), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createComment(commentRequestDto, postId, jwt), HttpStatus.CREATED);
     }
 
     @PutMapping("/like/post/{postId}")

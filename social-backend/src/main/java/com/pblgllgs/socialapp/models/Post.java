@@ -31,6 +31,12 @@ public class Post {
     private String image;
     private String video;
     @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            foreignKey = @ForeignKey(
+                    name = "post_user_id_fk"
+            )
+    )
     private User user;
     @ManyToMany
     private List<User> liked = new ArrayList<>();

@@ -45,8 +45,6 @@ Jsocial-backend/src/main/java/com/pblgllgs/socialapp/mapper/UserMapper.java,3\2
 ^social-backend/src/main/java/com/pblgllgs/socialapp/exception/InvalidCredentialsException.java,8\6\86040aae4d01c63139cd3ee267c5337231dc104d
 ã
 [social-backend/src/main/java/com/pblgllgs/socialapp/exception/OperationDeniedException.java,7\2\72d1e4882cd535c0c3165601ee3e9185247bd128
-â
-Ysocial-backend/src/main/java/com/pblgllgs/socialapp/exception/GlobalHandlerException.java,6\1\6109218d7b64d18b419c2c674cb25ed4d90e6af8
 ã
 [social-backend/src/main/java/com/pblgllgs/socialapp/exception/InvalidJwtTokenException.java,5\d\5d19b85defac6d93aeba11bad1be3e3a7f5248cd
 |
@@ -75,8 +73,6 @@ Xsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CommentService
 Usocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/CommentRequestDto.java,5\1\51de1c01aa136c0fc132375f4175139e38fd103b
 Ö
 Usocial-backend/src/main/java/com/pblgllgs/socialapp/controller/CommentController.java,1\5\15de062f2cf99659d8fd4472b311f81119cd8a3a
-y
-Isocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/Reels.java,d\6\d6283d05581f458636738ea057f2053a6f74d8fc
 u
 Esocial-backend/src/main/java/com/pblgllgs/socialapp/models/Reels.java,c\b\cba742cc49646221f220e0988123f94b482bf30a
 É
@@ -101,3 +97,13 @@ Vsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/StoryServiceIm
 Ssocial-backend/src/main/java/com/pblgllgs/socialapp/controller/StoryController.java,2\d\2dcb6807cd1301666d2377e8777d3624d8281b26
 ä
 Zsocial-backend/src/main/java/com/pblgllgs/socialapp/exception/GlobalHandlerExceptions.java,c\9\c9ea05efae037e5e073531d037c56c11573ed2ef
+Ä
+Psocial-backend/src/main/java/com/pblgllgs/socialapp/exception/ErrorResponse.java,7\b\7b1cc286621db9f832aa9362a9e6aa06aec95b58
+å
+\social-backend/src/main/java/com/pblgllgs/socialapp/exception/ResourceNotFoundException.java,6\c\6c4ee318817eaa64e78eb73569a53283f2a39fb1
+ç
+]social-backend/src/main/java/com/pblgllgs/socialapp/exception/UserAlreadyExistsException.java,f\b\fbe44c0e0c224bd090b76a78ada897aa2cf4d831
+ê
+`social-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CustomerUserDetailsService.java,2\7\27f4bd161beb3e96b8ff21a57a68166578b00fd9
+É
+Ssocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/UserResponseDto.java,f\8\f82fd82f65b2e8fbb801d065bd277a08e259b0ce

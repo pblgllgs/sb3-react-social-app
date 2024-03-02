@@ -22,7 +22,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PostDefaultDto {
-
     private String caption;
     private String image;
     private String video;

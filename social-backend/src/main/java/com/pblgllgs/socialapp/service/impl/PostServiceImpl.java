@@ -31,7 +31,6 @@ public class PostServiceImpl implements PostService {
 
     @Value("${messages.service.post.not-found}")
     private String messagePostNotFound;
-
     @Value("${messages.service.post.operation-denied}")
     private String messageOperationDenied;
 
@@ -84,14 +83,11 @@ public class PostServiceImpl implements PostService {
     public Post savedPost(Integer postId, String jwt) {
         User user = userService.getUserFromToken(jwt);
         Post post = findPostById(postId);
-
         if (user.getSavedPost().contains(post)) {
             user.getSavedPost().remove(post);
         } else {
             user.getSavedPost().add(post);
-
         }
-
         userRepository.save(user);
         return post;
 
@@ -101,7 +97,6 @@ public class PostServiceImpl implements PostService {
     public Post likePost(Integer postId, String jwt) {
         User user = userService.getUserFromToken(jwt);
         Post post = findPostById(postId);
-
         if (post.getLiked().contains(user)) {
             post.getLiked().remove(user);
         } else {

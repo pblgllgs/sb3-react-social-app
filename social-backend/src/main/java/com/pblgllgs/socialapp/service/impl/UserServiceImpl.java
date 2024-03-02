@@ -57,8 +57,7 @@ public class UserServiceImpl implements UserService {
         User user = getUserFromToken(jwt);
         User found = userRepository.findById(user.getId())
                 .orElseThrow(
-                        () -> new ResourceNotFoundException(messageUserNotFound + user.getId()
-                        )
+                        () -> new ResourceNotFoundException(messageUserNotFound + user.getId())
                 );
         found.setFirstName(userDto.getFirstName());
         found.setLastName(userDto.getLastName());
@@ -91,10 +90,8 @@ public class UserServiceImpl implements UserService {
     public User followerToFollowing(Integer userIdFollowing, String jwt) {
         User reqUser = getUserFromToken(jwt);
         User following = findUserById(userIdFollowing);
-
         following.getFollowers().add(reqUser.getId());
         reqUser.getFollowings().add(following.getId());
-
         userRepository.save(reqUser);
         userRepository.save(following);
         return reqUser;
