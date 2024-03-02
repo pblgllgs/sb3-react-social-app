@@ -18,21 +18,21 @@ import java.time.LocalDateTime;
  *
  */
 @RestControllerAdvice
-public class GlobalHandlerException {
+public class GlobalHandlerExceptions {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(
             UserAlreadyExistsException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -40,14 +40,14 @@ public class GlobalHandlerException {
             ResourceNotFoundException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(OperationDeniedException.class)
@@ -55,28 +55,28 @@ public class GlobalHandlerException {
             OperationDeniedException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleInvalidCredentialsException(
             InvalidCredentialsException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.UNAUTHORIZED.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(InvalidJwtTokenException.class)
@@ -84,14 +84,14 @@ public class GlobalHandlerException {
             InvalidJwtTokenException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MalformedJwtException.class)
@@ -99,14 +99,14 @@ public class GlobalHandlerException {
             MalformedJwtException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -114,14 +114,14 @@ public class GlobalHandlerException {
             UsernameNotFoundException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -129,13 +129,13 @@ public class GlobalHandlerException {
             BadCredentialsException e,
             HttpServletRequest request
     ) {
-        ErrorResponse ErrorResponse = new ErrorResponse(
+        ErrorResponse errorResponse = new ErrorResponse(
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.FORBIDDEN.value(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(ErrorResponse, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 }
