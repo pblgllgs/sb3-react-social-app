@@ -37,7 +37,7 @@ public class User {
     private String password;
     private String gender;
     @JsonBackReference
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_users_posts",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),

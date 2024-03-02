@@ -65,3 +65,15 @@ Qsocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/PostUpdateDto.ja
 Qsocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/UserUpdateDto.java,e\1\e11dd4a630b9be9448b659655f21d360e92abaf9
 |
 Lsocial-backend/src/main/java/com/pblgllgs/socialapp/service/PostService.java,b\b\bb6dc4e7a7a79ec8f1c405aafab7529f154139cd
+w
+Gsocial-backend/src/main/java/com/pblgllgs/socialapp/models/Comment.java,e\c\ecf5a08bf01cb120075b72fa126f2017a5251cfc
+…
+Usocial-backend/src/main/java/com/pblgllgs/socialapp/repository/CommentRepository.java,3\3\3397bc169ea0951d34b0f49ec7f956b1571d4050
+
+Osocial-backend/src/main/java/com/pblgllgs/socialapp/service/CommentService.java,c\5\c543e34a905f336b0fb188fd76a078317816f411
+ˆ
+Xsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CommentServiceImpl.java,7\a\7a0b4223da3faeda3c7c42cdbbca8a41b0d73cdf
+…
+Usocial-backend/src/main/java/com/pblgllgs/socialapp/models/dto/CommentRequestDto.java,5\1\51de1c01aa136c0fc132375f4175139e38fd103b
+…
+Usocial-backend/src/main/java/com/pblgllgs/socialapp/controller/CommentController.java,1\5\15de062f2cf99659d8fd4472b311f81119cd8a3a

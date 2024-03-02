@@ -1,4 +1,4 @@
-package com.pblgllgs.socialapp.service;
+package com.pblgllgs.socialapp.service.impl;
 /*
  *
  * @author pblgl

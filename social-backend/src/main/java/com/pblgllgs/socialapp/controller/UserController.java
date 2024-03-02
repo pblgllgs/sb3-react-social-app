@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") int id) {
-        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
     @PostMapping
@@ -50,7 +50,7 @@ public class UserController {
             @RequestBody UserUpdateDto userDto,
             @RequestHeader("Authorization") String  jwt
     ) {
-        return new ResponseEntity<>(userService.updateUser(userDto, jwt), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.updateUser(userDto, jwt), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

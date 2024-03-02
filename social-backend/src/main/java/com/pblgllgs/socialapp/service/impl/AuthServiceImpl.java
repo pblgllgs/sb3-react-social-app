@@ -14,7 +14,6 @@ import com.pblgllgs.socialapp.models.dto.UserDefaultDto;
 import com.pblgllgs.socialapp.repository.UserRepository;
 import com.pblgllgs.socialapp.security.JwtService;
 import com.pblgllgs.socialapp.service.AuthService;
-import com.pblgllgs.socialapp.service.CustomerUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

@@ -6,6 +6,7 @@ package com.pblgllgs.socialapp.models.dto;
  *
  */
 
+import com.pblgllgs.socialapp.models.Comment;
 import com.pblgllgs.socialapp.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,5 @@ public class PostDefaultDto {
     private User user;
     private List<User> liked = new ArrayList<>();
     private LocalDateTime createdAt;
+    private List<Comment> comments = new ArrayList<>();
 }

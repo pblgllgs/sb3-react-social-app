@@ -13,7 +13,6 @@ import com.pblgllgs.socialapp.models.dto.UserDefaultDto;
 import com.pblgllgs.socialapp.models.dto.UserUpdateDto;
 import com.pblgllgs.socialapp.repository.UserRepository;
 import com.pblgllgs.socialapp.security.JwtService;
-import com.pblgllgs.socialapp.service.CustomerUserDetailsService;
 import com.pblgllgs.socialapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

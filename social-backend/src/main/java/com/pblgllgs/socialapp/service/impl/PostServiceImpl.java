@@ -30,7 +30,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     @Value("${messages.service.post.not-found}")
-    private String messageUserNotFound;
+    private String messagePostNotFound;
 
     @Value("${messages.service.post.operation-denied}")
     private String messageOperationDenied;
@@ -49,6 +49,7 @@ public class PostServiceImpl implements PostService {
                 .video(postDto.getVideo())
                 .user(user)
                 .liked(postDto.getLiked())
+                .comments(postDto.getComments())
                 .build();
         log.info("New post: {}", newPost.toString());
         return postRepository.save(newPost);
@@ -57,7 +58,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Integer postId, String jwt) {
         User user = userService.getUserFromToken(jwt);
-        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException(messageUserNotFound + postId));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException(messagePostNotFound + postId));
         if (!post.getUser().getId().equals(user.getId())) {
             throw new OperationDeniedException(messageOperationDenied);
         }
@@ -71,7 +72,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findPostById(Integer postId) {
-        return postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException(messageUserNotFound + postId));
+        return postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException(messagePostNotFound + postId));
     }
 
     @Override

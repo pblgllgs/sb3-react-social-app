@@ -6,7 +6,6 @@ package com.pblgllgs.socialapp.models;
  *
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,4 +35,6 @@ public class Post {
     @ManyToMany
     private List<User> liked = new ArrayList<>();
     private LocalDateTime createdAt;
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
 }
