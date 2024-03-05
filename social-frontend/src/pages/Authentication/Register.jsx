@@ -8,10 +8,14 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
+import { useDispatch } from 'react-redux'
+import { registerUserAction } from "../../Redux/Auth/auth.action";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  
   const [gender, setGender] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const validationSchema = {
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -30,6 +34,7 @@ const Register = () => {
   const handleSubmit = (values) => {
     values.gender = gender;
     console.log(values);
+    dispatch(registerUserAction({ data: values }));
   };
 
   const handleChange = (e) => {
@@ -140,6 +145,10 @@ const Register = () => {
           </Button>
         </Form>
       </Formik>
+      <div className="flex gap-2 items-center justify-center pt-5">
+        <p>already have account ? </p>
+        <Button onClick={() => navigate("/login")}>Login</Button>
+      </div>
     </>
   );
 };

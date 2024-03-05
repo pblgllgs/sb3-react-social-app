@@ -129,8 +129,6 @@ Osocial-backend/src/main/java/com/pblgllgs/socialapp/service/MessageService.java
 Xsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/MessageServiceImpl.java,e\4\e46748ff679f7e60721a91cd9d3a72eb985648a3
 …
 Usocial-backend/src/main/java/com/pblgllgs/socialapp/controller/MessageController.java,6\9\69aebd2ba12ea0dbde74db3974bdc58a2b7a46ce
-|
-Lsocial-backend/src/main/java/com/pblgllgs/socialapp/security/CorsConfig.java,8\1\811c72cc9c584e18b586bd0fc979f7914b2e5198
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
