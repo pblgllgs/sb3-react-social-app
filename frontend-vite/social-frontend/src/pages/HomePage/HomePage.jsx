@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid } from "@mui/material";
 import { useLocation, Routes, Route } from "react-router-dom";
 import MiddlePart from "../../components/MiddlePart/MiddlePart";
@@ -31,13 +30,11 @@ const HomePage = () => {
             <Route path="/profile/:id" element={<Profile />} />
           </Routes>
         </Grid>
-        {location.pathname === "/" && (
-          <Grid item lg={3} className="relative">
-            <div className="sticky top-0 w-full">
-              <HomeRight />
-            </div>
-          </Grid>
-        )}
+        <Grid item lg={3} className="relative">
+          <div className="sticky top-0 w-full" >
+            <HomeRight />
+          </div>
+        </Grid>
       </Grid>
     </div>
   );
