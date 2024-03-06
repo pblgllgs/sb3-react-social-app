@@ -132,3 +132,13 @@ Usocial-backend/src/main/java/com/pblgllgs/socialapp/controller/MessageControlle
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+ˆ
+Xsocial-backend/src/main/java/com/pblgllgs/socialapp/controller/CloudinaryController.java,e\f\ef712c6bb7f82809b0732ca0493793603db44957
+u
+Esocial-backend/src/main/java/com/pblgllgs/socialapp/models/Image.java,d\9\d9038f34f66b51fd661efa96026927a26c9f3475
+ƒ
+Ssocial-backend/src/main/java/com/pblgllgs/socialapp/repository/ImageRepository.java,c\7\c70b47b7a16214c2c868ce25b744ba10db107f02
+‚
+Rsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/ImageService.java,8\9\896571931d198b70428e0485e841cd5d5b74147a
+‡
+Wsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CloudinaryService.java,2\5\2571f24ac56118f09598a2a603989954285b2593

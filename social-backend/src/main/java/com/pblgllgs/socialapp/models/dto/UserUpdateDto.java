@@ -25,6 +25,7 @@ public class UserUpdateDto {
     private String email;
     private String password;
     private String gender;
+    private String photo;
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
 }

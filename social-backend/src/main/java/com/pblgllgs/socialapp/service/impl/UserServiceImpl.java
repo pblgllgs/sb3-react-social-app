@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final CustomerUserDetailsService userDetailsService;
 
     @Override
     public User registerUser(UserDefaultDto userDto) {

@@ -41,6 +41,7 @@ public class User {
     private String email;
     private String password;
     private String gender;
+    private String photo;
     @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
