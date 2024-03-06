@@ -125,7 +125,7 @@ const Profile = () => {
                 {post.posts.map((item, i) => {
                   return (
                     <div key={i}  className="border border-slate-100 rounded-md">
-                      <PostCard />
+                      <PostCard post={item} />
                     </div>
                   );
                 })}
@@ -138,13 +138,13 @@ const Profile = () => {
               </div>
             ) : value === "saved" ? (
               <div className="space-y-5 w-[70%] my-10">
-                {savedPosts.map((item, i) => {
+                {/* {savedPosts.map((item, i) => {
                   return (
                     <div className="border border-slate-100 rounded-md">
-                      <PostCard key={i} />
+                      <PostCard key={i} post={item} />
                     </div>
                   );
-                })}
+                })} */}
               </div>
             ) : (
               <div>Repost</div>

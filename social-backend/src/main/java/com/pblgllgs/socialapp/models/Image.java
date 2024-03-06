@@ -1,31 +1,36 @@
 package com.pblgllgs.socialapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
+@Table(name = "tbl_images")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID id;
+
+    @Column(name = "name_image")
     private String name;
-    private String imageUrl;
-    private String imageId;
 
-    public Image(String name, String imageUrl, String imageId) {
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.imageId = imageId;
-    }
+    @Column(name = "url_image")
+    private String url;
 
+    @Column(name = "image_identifier")
+    private String imageIdentifier;
+
+    @OneToOne
+    @JsonBackReference
+    private User user;
 }

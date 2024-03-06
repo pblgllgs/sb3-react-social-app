@@ -1,0 +1,23 @@
+
+Q
+java:S3740#"/Provide the parametrized type for this generic.(˜Û±«şÿÿÿÿ8ÔäÓ®á1
+_
+java:S1128"=Remove this unused import 'com.cloudinary.utils.ObjectUtils'.(§…Ÿøÿÿÿÿ8ÍœÖ®á1
+a
+java:S1128"?Remove this unused import 'com.pblgllgs.socialapp.models.User'.(öÀ¦¶ıÿÿÿÿ8ÍœÖ®á1
+k
+java:S1128"NRemove this unused import 'com.pblgllgs.socialapp.repository.ImageRepository'.(®ÃÔ8²°ï®á1
+e
+java:S1128"HRemove this unused import 'com.pblgllgs.socialapp.service.ImageService'.(½Ûéµ8ÍœÖ®á1
+d
+java:S1128	"GRemove this unused import 'com.pblgllgs.socialapp.service.UserService'.(È£ÍĞ8ÍœÖ®á1
+l
+java:S1128"ORemove this unused import 'org.springframework.beans.factory.annotation.Value'.(ìø›8ÎœÖ®á1
+F
+java:S1128")Remove this unused import 'java.io.File'.(†Ğ¥Å8ÎœÖ®á1
+Q
+java:S1128"5Remove this unused import 'java.io.FileOutputStream'.(˜«ªg8ÎœÖ®á1
+M
+java:S1128"0Remove this unused import 'java.nio.file.Files'.(‚ƒü8ÎœÖ®á1
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8ÎœÖ®á1
