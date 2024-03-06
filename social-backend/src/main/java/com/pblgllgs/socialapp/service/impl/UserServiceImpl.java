@@ -61,8 +61,6 @@ public class UserServiceImpl implements UserService {
                 );
         found.setFirstName(userDto.getFirstName());
         found.setLastName(userDto.getLastName());
-        found.setEmail(userDto.getEmail());
-        found.setPassword(userDto.getPassword());
         return userRepository.save(found);
     }
 

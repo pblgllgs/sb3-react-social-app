@@ -1,12 +1,18 @@
 import axios from "axios";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL, api } from "../../config/api";
 import {
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE,
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   REGISTER_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  GET_PROFILE_REQUEST,
+  UPDATE_PROFILE_REQUEST,
 } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => {
@@ -22,7 +28,7 @@ export const loginUserAction = (loginData) => async (dispatch) => {
     console.log("🚀 ~ loginUserAction ~ data:", data);
     dispatch({ type: LOGIN_SUCCESS, payload: data });
   } catch (error) {
-    console.log("🚀 ~ loginUserAction ~ error:", error)
+    console.log("🚀 ~ loginUserAction ~ error:", error);
     dispatch({ type: LOGIN_FAILURE, payload: error });
   }
 };
@@ -37,11 +43,34 @@ export const registerUserAction = (registerData) => async (dispatch) => {
     if (data.token) {
       localStorage.setItem("jwt", data.token);
     }
-    console.log("🚀 ~ registerUserAction ~ data:", data)
+    console.log("🚀 ~ registerUserAction ~ data:", data);
     dispatch({ type: REGISTER_SUCCESS, payload: data });
   } catch (error) {
-    console.log(error);
     dispatch({ type: REGISTER_FAILURE, payload: error });
-    console.log("🚀 ~ registerUserAction ~ error:", error)
+    console.log("🚀 ~ registerUserAction ~ error:", error);
+  }
+};
+
+export const getProfileAction = (jwt) => async (dispatch) => {
+  dispatch({ type: GET_PROFILE_REQUEST });
+  try {
+    const { data } = await api.get(`${API_BASE_URL}/users/profile`);
+    console.log("🚀 ~ getProfileAction ~ data:", data);
+    dispatch({ type: GET_PROFILE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_PROFILE_FAILURE, payload: error });
+    console.log("🚀 ~ getProfileAction ~ error:", error);
+  }
+};
+
+export const updateProfileAction = (reqUser, jwt) => async (dispatch) => {
+  dispatch({ type: UPDATE_PROFILE_REQUEST });
+  try {
+    const { data } = await api.put(`${API_BASE_URL}/users`, reqUser);
+    console.log("🚀 ~ updateUserAction ~ data:", data);
+    dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data });
+  } catch (error) {
+    console.log("🚀 ~ updateUserAction ~ error:", error);
+    dispatch({ type: UPDATE_PROFILE_FAILURE, payload: error });
   }
 };

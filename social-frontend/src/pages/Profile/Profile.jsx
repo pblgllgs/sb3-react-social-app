@@ -1,8 +1,16 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { Avatar, Button, Box, Tabs, Tab, Card } from "@mui/material";
+import React, { useEffect } from "react";
+import {
+  Avatar,
+  Button,
+  Box,
+  Tabs,
+  Tab,
+  Card
+} from "@mui/material";
 import PostCard from "../../components/Post/PostCard";
 import UserReelCard from "../../components/Reels/UserReelCard";
+import { useSelector } from "react-redux";
+import ProfileModal from "./ProfileModal";
 
 const tabs = [
   {
@@ -30,13 +38,18 @@ const reels = [2, 2, 2, 2, 2];
 const savedPosts = [2, 2, 2, 2, 2];
 
 const Profile = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const { auth } = useSelector((store) => store);
+  console.log("🚀 ~ Profile ~ auth:", auth)
   const [value, setValue] = React.useState("post");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  };  
 
-  const { id } = useParams();
   return (
     <Card className="my-10 w-[70%]">
       <div className="rounded-md ">
@@ -54,7 +67,11 @@ const Profile = () => {
             src="https://cdn.sanity.io/images/m5wq2dq6/production/e51ad49e19bd01850398d26e3c5a8df2a91ba773-960x960.jpg"
           />
           {true ? (
-            <Button sx={{ borderRadius: "20px" }} variant="outlined">
+            <Button
+              onClick={handleOpen}
+              sx={{ borderRadius: "20px" }}
+              variant="outlined"
+            >
               Edit Profile
             </Button>
           ) : (
@@ -65,12 +82,19 @@ const Profile = () => {
         </div>
         <div className="p-5">
           <div>
-            <h1 className="py-1 font-bold text-xl">Pablo Gallegos</h1>
-            <p>@pblgllgs</p>
+            <h1 className="py-1 font-bold text-xl">
+              {auth.user?.firstName + " " + auth.user?.lastName}
+            </h1>
+            <p>
+              {"@" +
+                auth.user?.firstName.toLowerCase() +
+                "_" +
+                auth.user?.lastName.toLowerCase()}
+            </p>
           </div>
           <div className="flex gap-2 items-center py-3">
             <span>33 posts</span>
-            <span>20 followers</span>
+            <span>22 followers</span>
             <span>5 followings</span>
           </div>
           <div>
@@ -101,8 +125,8 @@ const Profile = () => {
               <div className="space-y-5 w-[70%] my-10">
                 {posts.map((item, i) => {
                   return (
-                    <div className="border border-slate-100 rounded-md">
-                      <PostCard key={i} />
+                    <div key={i}  className="border border-slate-100 rounded-md">
+                      <PostCard />
                     </div>
                   );
                 })}
@@ -129,6 +153,9 @@ const Profile = () => {
           </div>
         </section>
       </div>
+      <section>
+        <ProfileModal open={open} handleClose={handleClose} />
+      </section>
     </Card>
   );
 };

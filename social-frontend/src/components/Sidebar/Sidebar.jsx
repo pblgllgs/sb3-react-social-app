@@ -2,15 +2,26 @@ import React from "react";
 import { navigationMenu } from "./SidebarNavigation";
 import { Divider, Avatar, Button, MenuItem, Menu, Card } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { auth } = useSelector((store) => store);
+
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleNavigate = (item) => {
+    if (item.title === "Profile") {
+      navigate(`${item.path}/${auth.user?.id}`);
+    }
   };
 
   return (
@@ -20,10 +31,13 @@ const Sidebar = () => {
           <span className="logo font-bold text-xl">World Social</span>
         </div>
         <div className="space-y-8">
-          {navigationMenu.map((item,i) => {
+          {navigationMenu.map((item, i) => {
             return (
               <div key={i}>
-                <div className="cursor-pointer flex space-x-3 items-center">
+                <div
+                  onClick={() => handleNavigate(item)}
+                  className="cursor-pointer flex space-x-3 items-center"
+                >
                   {item.icon}
                   <p className="text-xl">{item.title}</p>
                 </div>
@@ -38,8 +52,15 @@ const Sidebar = () => {
           <div className="flex items-center space-x-3">
             <Avatar src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
             <div>
-              <p className="font-bold">Pblgllgs</p>
-              <p className="opacity-70">@pblgllgs</p>
+              <p className="font-bold">
+                {auth.user?.firstName + " " + auth.user?.lastName}
+              </p>
+              <p className="opacity-70">
+                {"@" +
+                  auth.user?.firstName.toLowerCase() +
+                  "_" +
+                  auth.user?.lastName.toLowerCase()}
+              </p>
             </div>
           </div>
           <Button
