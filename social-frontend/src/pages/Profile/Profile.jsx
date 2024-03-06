@@ -31,8 +31,6 @@ const tabs = [
   },
 ];
 
-const posts = [1, 1, 1, 1, 1];
-
 const reels = [2, 2, 2, 2, 2];
 
 const savedPosts = [2, 2, 2, 2, 2];
@@ -41,6 +39,7 @@ const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const {post} = useSelector(store=>store);
 
   const { auth } = useSelector((store) => store);
   console.log("🚀 ~ Profile ~ auth:", auth)
@@ -123,7 +122,7 @@ const Profile = () => {
           <div className="flex justify-center">
             {value === "post" ? (
               <div className="space-y-5 w-[70%] my-10">
-                {posts.map((item, i) => {
+                {post.posts.map((item, i) => {
                   return (
                     <div key={i}  className="border border-slate-100 rounded-md">
                       <PostCard />

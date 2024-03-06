@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import ImageIcon from "@mui/icons-material/Image";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
+import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
+import { createPostAction } from "../../Redux/Post/post.action";
 
 const style = {
   position: "absolute",
@@ -42,11 +44,24 @@ const CreatePostModel = ({ open, handleClose }) => {
     },
     onSubmit: (values) => {
       console.log("🚀 ~ ProfileModal ~ values:", values);
+      dispatch(createPostAction(values))
     },
   });
 
-  const handleSelectImage = () => {};
-  const handleSelectVideo = () => {};
+  const handleSelectImage = async (event) => {
+    setIsLoading(true);
+    const imageUrl = await uploadToCloudinary(event.target.files[0], "image");
+    setSelectedImage(imageUrl);
+    setIsLoading(false);
+    formik.setFieldValue("image", imageUrl);
+  };
+
+  const handleSelectVideo = async (event) => {
+    setIsLoading(true);
+    const videoUrl = await uploadToCloudinary(event.target.files[0], "video");
+    setSelectedVideo(videoUrl);
+    setIsLoading(false);
+  };
 
   return (
     <Modal
@@ -81,7 +96,7 @@ const CreatePostModel = ({ open, handleClose }) => {
               value={formik.values.caption}
               onChange={formik.handleChange}
               placeholder="Write a caption"
-              rows={4}
+              rows="4"
             ></textarea>
             <div className="flex space-x-5 items-center mt-5">
               <div>
@@ -93,7 +108,7 @@ const CreatePostModel = ({ open, handleClose }) => {
                   id="image-input"
                 />
                 <label htmlFor="image-input">
-                  <IconButton color="primary">
+                  <IconButton component="span" color="primary">
                     <ImageIcon />
                   </IconButton>
                 </label>
@@ -108,30 +123,26 @@ const CreatePostModel = ({ open, handleClose }) => {
                   id="video-input"
                 />
                 <label htmlFor="video-input">
-                  <IconButton color="primary">
+                  <IconButton component="span" color="primary">
                     <VideoCallIcon />
                   </IconButton>
                 </label>
                 <span>Video</span>
               </div>
-              {selectedImage && (
-                <div>
-                  <img
-                    className="h-[10rem]"
-                    src={selectedImage}
-                    alt="selected"
-                  />
-                </div>
-              )}
-              <div className="flex w-full justify-end">
-                <Button
-                  variant="container"
-                  type="submit"
-                  sx={{ borderRadius: "1.5rem" }}
-                >
-                  Post
-                </Button>
+            </div>
+            {selectedImage && (
+              <div>
+                <img className="h-[10rem]" src={selectedImage} alt="selected" />
               </div>
+            )}
+            <div className="flex w-full justify-end">
+              <Button
+                variant="container"
+                type="submit"
+                sx={{ borderRadius: "1.5rem" }}
+              >
+                Post
+              </Button>
             </div>
           </div>
         </form>
