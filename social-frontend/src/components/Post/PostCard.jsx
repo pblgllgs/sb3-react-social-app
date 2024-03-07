@@ -4,7 +4,6 @@ import {
   CardHeader,
   Avatar,
   IconButton,
-  CardMedia,
   CardContent,
   Typography,
   CardActions,
@@ -78,12 +77,6 @@ const PostCard = ({ post }) => {
           post.user.lastName.toLowerCase()
         }
       />
-      {/* <CardMedia
-        component="img"
-        height="100"
-        image={post.image}
-        alt="Paella dish"
-      /> */}
       <img className="w-full max-h-[30rem] object-cover object-top" src={post.image} alt="post" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
