@@ -13,4 +13,7 @@ import java.util.Map;
 
 public interface ImageService {
     ResponseEntity<Map> uploadImage(ImageDto imageModel,String jwt);
+
+    ResponseEntity<Map> updateImage(ImageDto imageModel, String jwt);
+
 }

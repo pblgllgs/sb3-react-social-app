@@ -132,16 +132,10 @@ Usocial-backend/src/main/java/com/pblgllgs/socialapp/controller/MessageControlle
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-ˆ
-Xsocial-backend/src/main/java/com/pblgllgs/socialapp/controller/CloudinaryController.java,e\f\ef712c6bb7f82809b0732ca0493793603db44957
 u
 Esocial-backend/src/main/java/com/pblgllgs/socialapp/models/Image.java,d\9\d9038f34f66b51fd661efa96026927a26c9f3475
 ƒ
 Ssocial-backend/src/main/java/com/pblgllgs/socialapp/repository/ImageRepository.java,c\7\c70b47b7a16214c2c868ce25b744ba10db107f02
-‚
-Rsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/ImageService.java,8\9\896571931d198b70428e0485e841cd5d5b74147a
-‡
-Wsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CloudinaryService.java,2\5\2571f24ac56118f09598a2a603989954285b2593
 Q
 !social-backend/social-backend.iml,b\c\bc61a70168dbae19922abacdda054985eaefc270
 €
@@ -150,14 +144,10 @@ Psocial-backend/src/main/java/com/pblgllgs/socialapp/config/CloudinaryConfig.jav
 Rsocial-backend/src/main/java/com/pblgllgs/socialapp/service/CloudinaryService.java,f\4\f48c07b1f39375be532a843fba46f96ae80ace1f
 }
 Msocial-backend/src/main/java/com/pblgllgs/socialapp/service/ImageService.java,0\c\0cc65e02274c876136e88951a0e47965a1458998
-z
-Jsocial-backend/src/main/java/com/pblgllgs/socialapp/models/ImageModel.java,8\0\80ee33f499137b6334a9ce92c686d581616ee831
 †
 Vsocial-backend/src/main/java/com/pblgllgs/socialapp/service/impl/ImageServiceImpl.java,c\6\c69013242058086664f5e40cd18b8f1f9a1afe04
 ƒ
 Ssocial-backend/src/main/java/com/pblgllgs/socialapp/controller/ImageController.java,9\c\9ce8026ad026fb57451bda751ad8c15789db1d82
-x
-Hsocial-backend/src/main/java/com/pblgllgs/socialapp/models/ImageDto.java,3\d\3dfd27ca8427307267943bd326904f6c372d2bfa
 ‹
 [social-backend/src/main/java/com/pblgllgs/socialapp/service/impl/CloudinaryServiceImpl.java,e\0\e00dfa32175dccf62251d206693fd968b2684e14
 |

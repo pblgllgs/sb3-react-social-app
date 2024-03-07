@@ -2,24 +2,17 @@ package com.pblgllgs.socialapp.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.pblgllgs.socialapp.models.User;
-import com.pblgllgs.socialapp.repository.ImageRepository;
 import com.pblgllgs.socialapp.service.CloudinaryService;
-import com.pblgllgs.socialapp.service.ImageService;
-import com.pblgllgs.socialapp.service.UserService;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +33,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void deleteImage(String id) throws Exception {
+        cloudinary.api().deleteResources(List.of("social_app/" + id),
+                ObjectUtils.asMap("type", "upload", "resource_type", "image"));
     }
 }

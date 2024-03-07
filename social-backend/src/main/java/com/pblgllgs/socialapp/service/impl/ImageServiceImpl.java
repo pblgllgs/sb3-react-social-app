@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Service
@@ -34,7 +35,6 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ResponseEntity<Map> uploadImage(ImageDto imageDto, String jwt) {
         User user = userService.getUserFromToken(jwt);
-        log.info(user.toString());
         try {
             if (imageDto.name().isEmpty()) {
                 return ResponseEntity.badRequest().build();
@@ -57,12 +57,57 @@ public class ImageServiceImpl implements ImageService {
             userRepository.save(user);
             return ResponseEntity.ok().body(
                     Map.of(
-                            "nameImage",image.getName(),
+                            "nameImage", image.getName(),
                             "url", image.getUrl(),
                             "imageIdentifier", image.getImageIdentifier(),
-                            "userId",image.getUser().getId(),
-                            "UUID",image.getId()
+                            "userId", image.getUser().getId(),
+                            "UUID", image.getId()
                     ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public ResponseEntity<Map> updateImage(ImageDto imageDto, String jwt) {
+        User user = userService.getUserFromToken(jwt);
+        try {
+            if (imageDto.name().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (imageDto.file().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (user.getImage().getId() != null) {
+                try {
+                    cloudinaryService.deleteImage(user.getImage().getImageIdentifier());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            Image imageToUpdate = user.getImage();
+            imageToUpdate.setName(imageDto.name());
+            imageToUpdate.setUrl(cloudinaryService.uploadFile(imageDto.file(), "social_app"));
+            imageToUpdate.setUser(user);
+            String[] split = imageToUpdate.getUrl().split("/");
+            String imageIdentifier = split[split.length - 1];
+            imageToUpdate.setImageIdentifier(imageIdentifier);
+            if (imageToUpdate.getUrl() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+            Image imageUpdated = imageRepository.save(imageToUpdate);
+            user.setImage(imageUpdated);
+            userRepository.save(user);
+            return ResponseEntity.ok().body(
+                    Map.of(
+                            "nameImage", imageUpdated.getName(),
+                            "url", imageUpdated.getUrl(),
+                            "imageIdentifier", imageUpdated.getImageIdentifier(),
+                            "userId", user.getId(),
+                            "UUID", imageUpdated.getId()
+                    ));
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
