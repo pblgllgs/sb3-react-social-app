@@ -50,7 +50,7 @@ const Sidebar = () => {
         <Divider />
         <div className="pl-5 flex items-center justify-between pt-5">
           <div className="flex items-center space-x-3">
-            <Avatar src={auth.user?.photo} />
+            <Avatar src={auth.user?.image.url} />
             <div>
               <p className="font-bold">
                 {auth.user?.firstName + " " + auth.user?.lastName}

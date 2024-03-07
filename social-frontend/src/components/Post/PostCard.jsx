@@ -18,18 +18,51 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { red } from "@mui/material/colors";
+import {
+  createCommentAction,
+  likePostAction,
+} from "../../Redux/Post/post.action";
+import { useDispatch,useSelector } from "react-redux";
+import { isLikedByReqUser } from "../../utils/isLikedByReqUser";
 
 const PostCard = ({ post }) => {
+  const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
   const [showComments, setShowComments] = useState(false);
   const handleShowComments = () => {
     setShowComments(!showComments);
   };
+
+  const handleCreateComment = (content) => {
+    const reqData = {
+      postId: post.id,
+      data: {
+        content,
+      },
+    };
+    dispatch(createCommentAction(reqData));
+    console.log(reqData);
+  };
+
+  const handleLikePost = () => {
+    dispatch(likePostAction(post.id));
+  };
+
   return (
-    <Card className="">
+    <Card className="my-3">
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar
+            src={post.user.image.url}
+            sx={{ bgColor: red[500] }}
+            aria-label="recipe"
+          >
+            <p className="opacity-70">
+              {"@" +
+                post.user?.firstName.toLowerCase() +
+                "_" +
+                post.user?.lastName.toLowerCase()}
+            </p>
           </Avatar>
         }
         action={
@@ -45,12 +78,13 @@ const PostCard = ({ post }) => {
           post.user.lastName.toLowerCase()
         }
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
-        height="194"
+        height="100"
         image={post.image}
         alt="Paella dish"
-      />
+      /> */}
+      <img className="w-full max-h-[30rem] object-cover object-top" src={post.image} alt="post" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {post.caption}
@@ -59,8 +93,12 @@ const PostCard = ({ post }) => {
 
       <CardActions className="flex justify-between" disableSpacing>
         <div>
-          <IconButton>
-            {true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          <IconButton onClick={handleLikePost}>
+            {isLikedByReqUser(auth.user.id, post) ? (
+              <FavoriteIcon />
+            ) : (
+              <FavoriteBorderIcon />
+            )}
           </IconButton>
           <IconButton>
             <ShareIcon />
@@ -78,11 +116,11 @@ const PostCard = ({ post }) => {
       {showComments && (
         <section>
           <div className="flex items-center space-x-5 mx-3 my-5">
-            <Avatar src={post.user?.photo} sx={{}} />
+            <Avatar src={post.user?.image.url} sx={{}} />
             <input
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  console.log("enter pressed");
+                  handleCreateComment(e.target.value);
                 }
               }}
               className="w-full outline-none bg-transparent border border-[#3b4054] rounded-full px-5 py-2"
@@ -91,18 +129,19 @@ const PostCard = ({ post }) => {
             />
           </div>
           <Divider />
-          <div className="mx-3 space-y-2 my-5 text-sx">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-5">
-                <Avatar
-                  sx={{ height: "2rem", width: "2rem", fontSize: "8rem" }}
-                >
-                  C
-                </Avatar>
-                <p>nice image</p>
+          {post.comments.map((comment, i) => {
+            return (
+              <div key={i} className="mx-3 space-y-2 my-5 text-sx">
+                <div className="flex items-center space-x-5">
+                  <Avatar
+                    sx={{ height: "2rem", width: "2rem", fontSize: "8rem" }}
+                    src={comment.user.image.url}
+                  ></Avatar>
+                  <p>{comment.content}</p>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </section>
       )}
     </Card>

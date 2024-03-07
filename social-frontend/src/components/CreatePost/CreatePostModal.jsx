@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import ImageIcon from "@mui/icons-material/Image";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
-import { createPostAction } from "../../Redux/Post/post.action";
+import { createPostAction} from "../../Redux/Post/post.action";
 
 const style = {
   position: "absolute",
@@ -75,7 +75,7 @@ const CreatePostModel = ({ open, handleClose }) => {
           <div>
             <div className="flex items-center space-x-4 ">
               <div className="flex items-center space-x-3">
-                <Avatar src={auth.user?.photo} />
+                <Avatar src={auth.user?.image.url} />
                 <div>
                   <h1 className="font-bold text-lg">
                     {auth.user?.firstName + " " + auth.user?.lastName}

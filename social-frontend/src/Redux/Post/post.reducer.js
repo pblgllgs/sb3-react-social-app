@@ -1,4 +1,5 @@
 import {
+  CREATE_COMMENT_FAILURE, CREATE_COMMENT_SUCCESS,
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
@@ -16,6 +17,8 @@ const initialState = {
   loading: false,
   posts: [],
   like: null,
+  comments: [],
+  newComment: null
 };
 
 export const postReducer = (state = initialState, action) => {
@@ -23,7 +26,7 @@ export const postReducer = (state = initialState, action) => {
     case LIKE_POST_REQUEST:
     case GET_ALL_POST_REQUEST:
     case CREATE_POST_REQUEST:
-      return { ...state, loading: true, error: null };
+      return {...state, loading: true, error: null};
 
     case CREATE_POST_SUCCESS:
       return {
@@ -35,7 +38,13 @@ export const postReducer = (state = initialState, action) => {
       };
 
     case GET_ALL_POST_SUCCESS:
-      return { ...state, posts: action.payload, loading: false, error: null };
+      return {
+        ...state,
+        posts: action.payload,
+        comments: action.payload.comments,
+        loading: false,
+        error: null
+      };
 
     case LIKE_POST_SUCCESS:
       return {
@@ -47,7 +56,14 @@ export const postReducer = (state = initialState, action) => {
         loading: false,
         error: null,
       };
-
+    case CREATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        newComment: action.payload,
+        loading: false,
+        error: null
+      }
+    case CREATE_COMMENT_FAILURE:
     case LIKE_POST_FAILURE:
     case CREATE_POST_FAILURE:
     case GET_ALL_POST_FAILURE:
