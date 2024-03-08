@@ -41,9 +41,10 @@ public class MessageServiceImpl implements MessageService {
                 .content(message.getContent())
                 .image(message.getImage())
                 .build();
-        chatFound.getMessages().add(newMessage);
+        Message messageSaved = messageRepository.save(newMessage);
+        chatFound.getMessages().add(messageSaved);
         chatRepository.save(chatFound);
-        return messageRepository.save(newMessage);
+        return messageSaved;
     }
 
     @Override

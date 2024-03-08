@@ -24,7 +24,7 @@ import {
 import { useDispatch,useSelector } from "react-redux";
 import { isLikedByReqUser } from "../../utils/isLikedByReqUser";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ item }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
   const [showComments, setShowComments] = useState(false);
@@ -34,7 +34,7 @@ const PostCard = ({ post }) => {
 
   const handleCreateComment = (content) => {
     const reqData = {
-      postId: post.id,
+      postId: item.id,
       data: {
         content,
       },
@@ -44,7 +44,7 @@ const PostCard = ({ post }) => {
   };
 
   const handleLikePost = () => {
-    dispatch(likePostAction(post.id));
+    dispatch(likePostAction(item.id));
   };
 
   return (
@@ -52,15 +52,15 @@ const PostCard = ({ post }) => {
       <CardHeader
         avatar={
           <Avatar
-            src={post.user.image.url}
+            src={item.user.image.url}
             sx={{ bgColor: red[500] }}
             aria-label="recipe"
           >
             <p className="opacity-70">
               {"@" +
-                post.user?.firstName.toLowerCase() +
+                item.user?.firstName.toLowerCase() +
                 "_" +
-                post.user?.lastName.toLowerCase()}
+                item.user?.lastName.toLowerCase()}
             </p>
           </Avatar>
         }
@@ -69,25 +69,25 @@ const PostCard = ({ post }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={post.user.firstName + " " + post.user.lastName}
+        title={item.user.firstName + " " + item.user.lastName}
         subheader={
           "@" +
-          post.user.firstName.toLowerCase() +
+          item.user.firstName.toLowerCase() +
           "_" +
-          post.user.lastName.toLowerCase()
+          item.user.lastName.toLowerCase()
         }
       />
-      <img className="w-full max-h-[30rem] object-cover object-top" src={post.image} alt="post" />
+      <img className="w-full max-h-[30rem] object-cover object-top" src={item.image} alt="post" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {post.caption}
+          {item.caption}
         </Typography>
       </CardContent>
 
       <CardActions className="flex justify-between" disableSpacing>
         <div>
           <IconButton onClick={handleLikePost}>
-            {isLikedByReqUser(auth.user.id, post) ? (
+            {isLikedByReqUser(auth.user.id, item) ? (
               <FavoriteIcon />
             ) : (
               <FavoriteBorderIcon />
@@ -109,7 +109,7 @@ const PostCard = ({ post }) => {
       {showComments && (
         <section>
           <div className="flex items-center space-x-5 mx-3 my-5">
-            <Avatar src={post.user?.image.url} sx={{}} />
+            <Avatar src={item.user?.image.url} sx={{}} />
             <input
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
@@ -122,7 +122,7 @@ const PostCard = ({ post }) => {
             />
           </div>
           <Divider />
-          {post.comments.map((comment, i) => {
+          {item.comments.map((comment, i) => {
             return (
               <div key={i} className="mx-3 space-y-2 my-5 text-sx">
                 <div className="flex items-center space-x-5">

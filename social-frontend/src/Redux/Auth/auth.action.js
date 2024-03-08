@@ -13,6 +13,9 @@ import {
   UPDATE_PROFILE_FAILURE,
   GET_PROFILE_REQUEST,
   UPDATE_PROFILE_REQUEST,
+  SEARCH_USER_REQUEST,
+  SEARCH_USER_SUCCESS,
+  SEARCH_USER_FAILURE,
 } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => {
@@ -63,7 +66,7 @@ export const getProfileAction = (jwt) => async (dispatch) => {
   }
 };
 
-export const updateProfileAction = (reqUser, jwt) => async (dispatch) => {
+export const updateProfileAction = (reqUser) => async (dispatch) => {
   dispatch({ type: UPDATE_PROFILE_REQUEST });
   try {
     const { data } = await api.put(`${API_BASE_URL}/users`, reqUser);
@@ -72,5 +75,17 @@ export const updateProfileAction = (reqUser, jwt) => async (dispatch) => {
   } catch (error) {
     console.log("🚀 ~ updateUserAction ~ error:", error);
     dispatch({ type: UPDATE_PROFILE_FAILURE, payload: error });
+  }
+};
+
+export const searchUser = (query) => async (dispatch) => {
+  dispatch({ type: SEARCH_USER_REQUEST });
+  try {
+    const { data } = await api.get(`${API_BASE_URL}/users/search?query=${query}`);
+    console.log("🚀 ~ searchUser ~ data:", data);
+    dispatch({ type: SEARCH_USER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: SEARCH_USER_FAILURE, payload: error });
+    console.log("🚀 ~ searchUser ~ error:", error);
   }
 };

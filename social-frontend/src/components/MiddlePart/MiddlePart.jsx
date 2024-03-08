@@ -79,7 +79,7 @@ const MiddlePart = () => {
       </Card>
       <div className="mt-5 space-y-5">
         {post.posts.map((item, i) => {
-          return <PostCard key={i} post={item}/>;
+          return <PostCard key={i} item={item}/>;
         })}
       </div>
       <div>

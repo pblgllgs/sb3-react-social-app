@@ -125,7 +125,7 @@ const Profile = () => {
                 {post.posts.map((item, i) => {
                   return (
                     <div key={i}  className="border border-slate-100 rounded-md">
-                      <PostCard post={item} />
+                      <PostCard item={item} />
                     </div>
                   );
                 })}

@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                                         .requestMatchers("/api/1.0/comments/**").authenticated()
                                         .requestMatchers("/api/1.0/reels/**").authenticated()
                                         .requestMatchers("/api/1.0/stories/**").authenticated()
+                                        .requestMatchers("/api/1.0/chats/**").authenticated()
 //                                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                                         .anyRequest().permitAll()
                 )
