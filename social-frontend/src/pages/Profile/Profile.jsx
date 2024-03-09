@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Avatar,
-  Button,
-  Box,
-  Tabs,
-  Tab,
-  Card
-} from "@mui/material";
+import { Avatar, Button, Box, Tabs, Tab, Card } from "@mui/material";
 import PostCard from "../../components/Post/PostCard";
 import UserReelCard from "../../components/Reels/UserReelCard";
 import { useSelector } from "react-redux";
@@ -37,15 +30,15 @@ const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const {post} = useSelector(store=>store);
+  const posts = useSelector((store) => store.post.posts);
 
   const { auth } = useSelector((store) => store);
-  console.log("🚀 ~ Profile ~ auth:", auth)
+  console.log("🚀 ~ Profile ~ auth:", auth);
   const [value, setValue] = React.useState("post");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };  
+  };
 
   return (
     <Card className="my-10 w-[70%]">
@@ -120,16 +113,16 @@ const Profile = () => {
           <div className="flex justify-center">
             {value === "post" ? (
               <div className="space-y-5 w-[70%] my-10">
-                {post.posts.map((item, i) => {
+                {posts.map((item, i) => {
                   return (
-                    <div key={i}  className="border border-slate-100 rounded-md">
+                    <div key={i} className="border border-slate-100 rounded-md">
                       <PostCard item={item} />
                     </div>
                   );
                 })}
               </div>
             ) : value === "reels" ? (
-              <div className="flex gap-2 my-10 justify-normal flex-wrap">
+              <div className="flex gap-2 my-10 flex-wrap justify-center items-center">
                 {reels.map((item, i) => {
                   return <UserReelCard key={i} />;
                 })}

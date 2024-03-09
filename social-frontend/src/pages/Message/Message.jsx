@@ -110,9 +110,9 @@ const Message = () => {
     console.log("Disconnected", error);
   };
 
-  function limpiar(){
-    document.getElementById("enter").value = "";
-}
+  function cleanInput(id) {
+    document.getElementById(id).value = "";
+  }
 
   return (
     <div>
@@ -122,10 +122,10 @@ const Message = () => {
             <div className="w-full">
               <div className="flex space-x-4 items-center py-5">
                 <WestIcon
-                  className="cursor-pointer"
+                  className="cursor-pointer white"
                   onClick={() => navigate("/home")}
                 />
-                <h1 className="text-xl font-bold">Home</h1>
+                <h1 className="text-xl font-bold white">Home</h1>
               </div>
               <div className="h-[83vh]">
                 <div className="">
@@ -150,7 +150,7 @@ const Message = () => {
             </div>
           </div>
         </Grid>
-        <Grid className="h-full" item xs={9}>
+        <Grid className="h-full white" item xs={9}>
           {currentChat ? (
             <div>
               <div className="flex justify-between items-center border-l p-5">
@@ -186,7 +186,11 @@ const Message = () => {
                 className="hideScrollBar overflow-y-scroll h-[82ch] px-2 space-y-5 py-5"
               >
                 {messages.map((item, i) => {
-                  return <ChatMessage key={i} item={item} />;
+                  return (
+                    <div className="mx-3">
+                      <ChatMessage key={i} item={item} />
+                    </div>
+                  );
                 })}
               </div>
               <div className="sticky bottom-0 border-l">
@@ -203,7 +207,7 @@ const Message = () => {
                       if (e.key === "Enter" && e.target.value) {
                         handleCreateMessage(e.target.value);
                         setSelectedImage("");
-                        limpiar();
+                        cleanInput("enter");
                       }
                     }}
                     id="enter"

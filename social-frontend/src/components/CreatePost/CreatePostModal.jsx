@@ -77,10 +77,10 @@ const CreatePostModel = ({ open, handleClose }) => {
               <div className="flex items-center space-x-3">
                 <Avatar src={auth.user?.image.url} />
                 <div>
-                  <h1 className="font-bold text-lg">
+                  <h1 className="font-bold text-lg white">
                     {auth.user?.firstName + " " + auth.user?.lastName}
                   </h1>
-                  <p className="text-sm">
+                  <p className="text-sm white">
                     {"@" +
                       auth.user?.firstName.toLowerCase() +
                       "_" +
@@ -88,10 +88,10 @@ const CreatePostModel = ({ open, handleClose }) => {
                   </p>
                 </div>
               </div>
-              <Button type="submit">Save</Button>
+              <Button type="submit" className="white">Save</Button>
             </div>
             <textarea
-              className="outline-none w-full mt-5 p-2 bg-transparent border border-[#3b4054] rounded-sm"
+              className="outline-none w-full mt-5 p-2 bg-transparent border border-[#3b4054] rounded-sm white"
               name="caption"
               value={formik.values.caption}
               onChange={formik.handleChange}
@@ -108,11 +108,11 @@ const CreatePostModel = ({ open, handleClose }) => {
                   id="image-input"
                 />
                 <label htmlFor="image-input">
-                  <IconButton component="span" color="primary">
+                  <IconButton className="white" component="span" color="primary">
                     <ImageIcon />
                   </IconButton>
                 </label>
-                <span>Image</span>
+                <span className="white">Image</span>
               </div>
               <div>
                 <input
@@ -123,11 +123,11 @@ const CreatePostModel = ({ open, handleClose }) => {
                   id="video-input"
                 />
                 <label htmlFor="video-input">
-                  <IconButton component="span" color="primary">
+                  <IconButton component="span" color="primary" >
                     <VideoCallIcon />
                   </IconButton>
                 </label>
-                <span>Video</span>
+                <span className="white">Video</span>
               </div>
             </div>
             {selectedImage && (
@@ -135,7 +135,7 @@ const CreatePostModel = ({ open, handleClose }) => {
                 <img className="h-[10rem]" src={selectedImage} alt="selected" />
               </div>
             )}
-            <div className="flex w-full justify-end">
+            <div className="flex w-full justify-end white">
               <Button
                 variant="container"
                 type="submit"
