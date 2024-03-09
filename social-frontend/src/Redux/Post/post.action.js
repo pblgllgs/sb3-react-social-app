@@ -20,7 +20,7 @@ export const createPostAction = (postData) => async (dispatch) => {
   dispatch({ type: CREATE_POST_REQUEST });
   try {
     const { data } = await api.post(`${API_BASE_URL}/posts`, postData);
-    console.log("🚀 ~ createPostAction ~ data:", data);
+    // console.log("🚀 ~ createPostAction ~ data:", data);
     dispatch({ type: CREATE_POST_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ createPostAction ~ error:", error);
@@ -32,7 +32,7 @@ export const getAllPostAction = () => async (dispatch) => {
   dispatch({ type: GET_ALL_POST_REQUEST });
   try {
     const { data } = await api.get(`${API_BASE_URL}/posts`);
-    console.log("🚀 ~ createPostAction ~ data:", data);
+    // console.log("🚀 ~ createPostAction ~ data:", data);
     dispatch({ type: GET_ALL_POST_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ createPostAction ~ error:", error);
@@ -44,7 +44,7 @@ export const getUsersPostAction = (userId) => async (dispatch) => {
   dispatch({ type: GET_USERS_POST_REQUEST });
   try {
     const { data } = await api.get(`${API_BASE_URL}/post/user/${userId}/all`);
-    console.log("🚀 ~ getUsersPostAction ~ data:", data);
+    // console.log("🚀 ~ getUsersPostAction ~ data:", data);
     dispatch({ type: GET_USERS_POST_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ getUsersPostAction ~ error:", error);
@@ -56,7 +56,7 @@ export const likePostAction = (postId) => async (dispatch) => {
   dispatch({ type: LIKE_POST_REQUEST });
   try {
     const { data } = await api.put(`${API_BASE_URL}/posts/liked/${postId}`);
-    console.log("🚀 ~ likePostAction ~ data:", data);
+    // console.log("🚀 ~ likePostAction ~ data:", data);
     dispatch({ type: LIKE_POST_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ likePostAction ~ error:", error);
@@ -69,7 +69,7 @@ export const createCommentAction = (reqData) => async (dispatch) => {
   dispatch({ type: CREATE_COMMENT_REQUEST });
   try {
     const { data } = await api.post(`${API_BASE_URL}/comments/post/${reqData.postId}`, reqData.data);
-    console.log("🚀 ~ createCommentAction ~ data:", data);
+    // console.log("🚀 ~ createCommentAction ~ data:", data);
     dispatch({ type: CREATE_COMMENT_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ createCommentAction ~ error:", error);

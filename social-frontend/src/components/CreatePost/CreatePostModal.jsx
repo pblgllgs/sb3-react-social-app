@@ -43,7 +43,7 @@ const CreatePostModel = ({ open, handleClose }) => {
       image: "",
     },
     onSubmit: (values) => {
-      console.log("🚀 ~ ProfileModal ~ values:", values);
+      console.log("🚀 ~ ProfileModal ~ values:", selectedVideo);
       dispatch(createPostAction(values))
     },
   });

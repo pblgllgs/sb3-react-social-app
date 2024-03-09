@@ -12,10 +12,10 @@ export const uploadToCloudinary = async (pics, fileType) => {
       `https://api.cloudinary.com/v1_1/${cloud_name}/${fileType}/upload`,
       { method: "POST", body: data }
     );
-    console.log(response);
+    // console.log(response);
 
     const fileData = await response.json();
-    console.log(fileData.url);
+    // console.log(fileData.url);
     return fileData.url;
   } else {
     console.log("error upload");

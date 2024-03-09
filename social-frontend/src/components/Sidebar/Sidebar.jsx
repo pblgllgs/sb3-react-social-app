@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -21,6 +20,9 @@ const Sidebar = () => {
   const handleNavigate = (item) => {
     if (item.title === "Profile") {
       navigate(`${item.path}/${auth.user?.id}`);
+    }
+    if (item.title === "Message") {
+      navigate("/message");
     }
   };
 

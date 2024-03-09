@@ -36,14 +36,11 @@ export default function ProfileModal({ open, handleClose }) {
       lastName: auth.user?.lastName,
     },
     onSubmit: (values) => {
-      console.log("🚀 ~ ProfileModal ~ values:", values);
+      // console.log("🚀 ~ ProfileModal ~ values:", values);
       dispatch(updateProfileAction(values));
     },
   });
-
-  const handleSubmit = (values) => {
-    console.log("🚀 ~ handleSubmit ~ values:", values);
-  };
+  
   return (
     <div>
       <Modal

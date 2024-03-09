@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Avatar,
   Button,
@@ -32,8 +32,6 @@ const tabs = [
 ];
 
 const reels = [2, 2, 2, 2, 2];
-
-const savedPosts = [2, 2, 2, 2, 2];
 
 const Profile = () => {
   const [open, setOpen] = React.useState(false);

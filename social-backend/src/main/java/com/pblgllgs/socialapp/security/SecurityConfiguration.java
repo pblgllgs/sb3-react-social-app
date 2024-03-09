@@ -6,7 +6,6 @@ package com.pblgllgs.socialapp.security;
  *
  */
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +43,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                                 auth
                                         .requestMatchers("/api/1.0/posts/**").authenticated()
+                                        .requestMatchers("/api/1.0/images/**").authenticated()
                                         .requestMatchers("/api/1.0/users/**").authenticated()
                                         .requestMatchers("/api/1.0/comments/**").authenticated()
                                         .requestMatchers("/api/1.0/reels/**").authenticated()

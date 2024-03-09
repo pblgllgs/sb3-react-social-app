@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Card, CardHeader, Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { searchUser } from "../../Redux/Auth/auth.action";
 import { createChat } from "../../Redux/Message/message.action";
+import { searchUserFind } from "../../Redux/Auth/auth.action";
 
 const SearchUser = () => {
   const [username, setUsername] = useState();
   const dispatch = useDispatch();
-  const { message, auth } = useSelector((store) => store);
+  const searchUser = useSelector((store) => store.auth.searchUser);
 
 
   const handleSearchUser = (e) => {
     setUsername(e.target.value);
-    console.log("search user...");
-    dispatch(searchUser(username));
+    // console.log("search user...");
+    dispatch(searchUserFind(username));
   };
 
   const handleClick = (id) => {
@@ -33,7 +33,7 @@ const SearchUser = () => {
           onChange={handleSearchUser}
         />
         {username &&
-          auth.searchUser.map((user, i) => {
+          searchUser.map((user, i) => {
             return (
               <Card
                 key={i}

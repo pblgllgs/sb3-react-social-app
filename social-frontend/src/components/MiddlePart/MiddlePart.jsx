@@ -21,12 +21,12 @@ const MiddlePart = () => {
 
   const handleOpenCreatePostModal = () => {
     openModal();
-    console.log("handle");
+    // console.log("handle");
   };
 
   useEffect(() => {
     dispatch(getAllPostAction())
-  }, [post.newComment])
+  }, [post.newComment,dispatch])
 
 
   return (

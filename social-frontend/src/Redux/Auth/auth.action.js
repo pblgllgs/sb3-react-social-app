@@ -28,7 +28,7 @@ export const loginUserAction = (loginData) => async (dispatch) => {
     if (data.token) {
       localStorage.setItem("jwt", data.token);
     }
-    console.log("🚀 ~ loginUserAction ~ data:", data);
+    // console.log("🚀 ~ loginUserAction ~ data:", data);
     dispatch({ type: LOGIN_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ loginUserAction ~ error:", error);
@@ -46,7 +46,7 @@ export const registerUserAction = (registerData) => async (dispatch) => {
     if (data.token) {
       localStorage.setItem("jwt", data.token);
     }
-    console.log("🚀 ~ registerUserAction ~ data:", data);
+    // console.log("🚀 ~ registerUserAction ~ data:", data);
     dispatch({ type: REGISTER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: REGISTER_FAILURE, payload: error });
@@ -54,11 +54,11 @@ export const registerUserAction = (registerData) => async (dispatch) => {
   }
 };
 
-export const getProfileAction = (jwt) => async (dispatch) => {
+export const getProfileAction = () => async (dispatch) => {
   dispatch({ type: GET_PROFILE_REQUEST });
   try {
     const { data } = await api.get(`${API_BASE_URL}/users/profile`);
-    console.log("🚀 ~ getProfileAction ~ data:", data);
+    // console.log("🚀 ~ getProfileAction ~ data:", data);
     dispatch({ type: GET_PROFILE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PROFILE_FAILURE, payload: error });
@@ -70,7 +70,7 @@ export const updateProfileAction = (reqUser) => async (dispatch) => {
   dispatch({ type: UPDATE_PROFILE_REQUEST });
   try {
     const { data } = await api.put(`${API_BASE_URL}/users`, reqUser);
-    console.log("🚀 ~ updateUserAction ~ data:", data);
+    // console.log("🚀 ~ updateUserAction ~ data:", data);
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data });
   } catch (error) {
     console.log("🚀 ~ updateUserAction ~ error:", error);
@@ -78,11 +78,11 @@ export const updateProfileAction = (reqUser) => async (dispatch) => {
   }
 };
 
-export const searchUser = (query) => async (dispatch) => {
+export const searchUserFind = (query) => async (dispatch) => {
   dispatch({ type: SEARCH_USER_REQUEST });
   try {
     const { data } = await api.get(`${API_BASE_URL}/users/search?query=${query}`);
-    console.log("🚀 ~ searchUser ~ data:", data);
+    // console.log("🚀 ~ searchUser ~ data:", data);
     dispatch({ type: SEARCH_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: SEARCH_USER_FAILURE, payload: error });

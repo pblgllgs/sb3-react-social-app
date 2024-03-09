@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import {
   Button,
   RadioGroup,
@@ -17,12 +17,12 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const validationSchema = {
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(8, "must be contain 8 characters")
-      .required("Password is required"),
-  };
+  // const validationSchema = {
+  //   email: Yup.string().email("Invalid email").required("Email is required"),
+  //   password: Yup.string()
+  //     .min(8, "must be contain 8 characters")
+  //     .required("Password is required"),
+  // };
 
   const initialValues = {
     firstName: "",
@@ -33,7 +33,7 @@ const Register = () => {
 
   const handleSubmit = (values) => {
     values.gender = gender;
-    console.log(values);
+    // console.log(values);
     dispatch(registerUserAction({ data: values }));
   };
 

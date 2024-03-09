@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const ChatMessage = ({ item }) => {
-  const { auth } = useSelector((store) => store);
-  const isReqUserMessage = auth.user?.id === item.user?.id;
+  const user = useSelector((store) => store.auth.user);
+  const isReqUserMessage = user?.id === item.user?.id;
   return (
     <div
       className={`flex ${

@@ -7,9 +7,8 @@ import CreateReelsFrom from "../../components/Reels/CreateReelsFrom";
 import Profile from "../Profile/Profile";
 import HomeRight from "../../components/HomeRight/HomeRight";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getProfileAction } from "../../Redux/Auth/auth.action";
-import { Message } from "@mui/icons-material";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -17,11 +16,9 @@ const HomePage = () => {
 
   const jwt = localStorage.getItem("jwt");
 
-  const {auth}  = useSelector(store => store);
-
   useEffect(() => {
     dispatch(getProfileAction(jwt));
-  }, []);
+  }, [dispatch,jwt]);
 
   return (
     <div className="px-20">

@@ -1,28 +1,28 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
-import * as Yup from "yup";
+// import React, { useState } from "react";
+// import * as Yup from "yup";
 import { Button, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../Redux/Auth/auth.action";
 import { useNavigate } from "react-router-dom";
 
-const validationSchema = {
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(8, "must be contain 8 characters")
-    .required("Password is required"),
-};
+// const validationSchema = {
+//   email: Yup.string().email("Invalid email").required("Email is required"),
+//   password: Yup.string()
+//     .min(8, "must be contain 8 characters")
+//     .required("Password is required"),
+// };
 
 const initialValues = { email: "pbl.gllgs@gmail.com", password: "pass" };
 
 const Login = () => {
-  const [formValues, setFormValues] = useState();
+  // const [formValues, setFormValues] = useState();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
-    console.log("🚀 ~ handleSubmit ~ values:", values);
+    // console.log("🚀 ~ handleSubmit ~ values:", values);
     dispatch(loginUserAction({ data: values }));
   };
   return (

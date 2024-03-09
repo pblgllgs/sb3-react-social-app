@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/1.0/cloudinary")
+@RequestMapping("/api/1.0/images")
 @Slf4j
 @RequiredArgsConstructor
 public class ImageController {

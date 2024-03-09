@@ -40,7 +40,7 @@ const PostCard = ({ item }) => {
       },
     };
     dispatch(createCommentAction(reqData));
-    console.log(reqData);
+    // console.log(reqData);
   };
 
   const handleLikePost = () => {

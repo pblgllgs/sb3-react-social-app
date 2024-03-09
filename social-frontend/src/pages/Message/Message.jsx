@@ -5,32 +5,86 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import WestIcon from "@mui/icons-material/West";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SearchUser from "../../components/SearchUser/SearchUser";
 import "./Message.css";
 import UserChatCard from "./UserChatCard";
 import ChatMessage from "./ChatMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { createMessage, getAllChats } from "../../Redux/Message/message.action";
-import { ChatBubbleOutline } from "@mui/icons-material";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
+import { useNavigate } from "react-router-dom";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 const Message = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { message, auth } = useSelector((store) => store);
+  const chats = useSelector((store) => store.message.chats);
+  const user = useSelector((store) => store.auth.user);
   const [currentChat, setCurrentChat] = useState();
-  console.log("🚀 ~ Message ~ currentChat:", currentChat);
   const [messages, setMessages] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
   const [loading, setLoading] = useState(false);
+  const [stompClient, setStompClient] = useState(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     dispatch(getAllChats());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const socket = new SockJS("http://localhost:5454/ws");
+    const stomp = Stomp.over(socket);
+    setStompClient(stomp);
+    stomp.connect({}, onConnect, onErr);
   }, []);
+
+  useEffect(() => {
+    if (stompClient && user && currentChat) {
+      stompClient.subscribe(
+        `/user/${currentChat.id}/private`,
+        onMessageReceive
+      );
+      // return () => {
+      //   subscription.unsubscribe();
+      // }
+    }
+  });
+
+  const sendMessageToServer = (newMessage) => {
+    console.log("🚀 ~ sendMessageToServer ~ newMessage:", newMessage);
+    if (stompClient && newMessage) {
+      stompClient.send(
+        `/app/chat/${currentChat?.id.toString()}`,
+        {},
+        JSON.stringify(newMessage)
+      );
+    }
+  };
+
+  const onMessageReceive = (payload) => {
+    console.log("🚀 ~ onMessageReceive ~ payload:", payload);
+    const receivedMessage = JSON.parse(payload.body);
+    console.log("message received from websocket", receivedMessage);
+    setMessages([...messages, receivedMessage]);
+  };
+
+  // useEffect(() => {
+  //   setMessages([...messages, message.message]);
+  // }, [message.message]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSelectedImage = async (e) => {
     setLoading(true);
@@ -41,16 +95,24 @@ const Message = () => {
 
   const handleCreateMessage = (value) => {
     const message = {
-      chatId: currentChat.id,
+      chatId: currentChat?.id,
       content: value,
       image: selectedImage,
     };
-    dispatch(createMessage(message));
+    dispatch(createMessage({ message, sendMessageToServer }));
   };
 
-  useEffect(() => {
-    setMessages([...messages, message.message]);
-  }, [message.message]);
+  const onConnect = () => {
+    console.log("websocket connected");
+  };
+
+  const onErr = (error) => {
+    console.log("Disconnected", error);
+  };
+
+  function limpiar(){
+    document.getElementById("enter").value = "";
+}
 
   return (
     <div>
@@ -59,7 +121,10 @@ const Message = () => {
           <div className="flex h-full justify-between space-x-2">
             <div className="w-full">
               <div className="flex space-x-4 items-center py-5">
-                <WestIcon />
+                <WestIcon
+                  className="cursor-pointer"
+                  onClick={() => navigate("/home")}
+                />
                 <h1 className="text-xl font-bold">Home</h1>
               </div>
               <div className="h-[83vh]">
@@ -67,7 +132,7 @@ const Message = () => {
                   <SearchUser />
                 </div>
                 <div className="h-full spice-y-4 mt-5 overflow-y-scroll hideScrollBar">
-                  {message.chats.map((item, i) => {
+                  {chats.map((item, i) => {
                     return (
                       <div
                         key={i}
@@ -90,11 +155,21 @@ const Message = () => {
             <div>
               <div className="flex justify-between items-center border-l p-5">
                 <div className="flex items-center space-x-3">
-                  <Avatar src={currentChat.users[1].image.url} />
+                  <Avatar
+                    src={
+                      user?.id === currentChat.users[0]?.id
+                        ? currentChat.users[1].image.url
+                        : currentChat.users[0].image.url
+                    }
+                  />
                   <p>
-                    {currentChat.users[1].firstName +
-                      " " +
-                      currentChat.users[1].lastName}
+                    {user?.id === currentChat.users[0]?.id
+                      ? currentChat.users[1].firstName +
+                        " " +
+                        currentChat.users[1].lastName
+                      : currentChat.users[0].firstName +
+                        " " +
+                        currentChat.users[0].lastName}
                   </p>
                 </div>
                 <div className="flex space-x-3">
@@ -106,13 +181,12 @@ const Message = () => {
                   </IconButton>
                 </div>
               </div>
-              <div className="hideScrollBar overflow-y-scroll h-[82ch] px-2 space-y-5 py-5">
+              <div
+                ref={chatContainerRef}
+                className="hideScrollBar overflow-y-scroll h-[82ch] px-2 space-y-5 py-5"
+              >
                 {messages.map((item, i) => {
-                  return (
-                    <>
-                      <ChatMessage key={i} item={item} />
-                    </>
-                  );
+                  return <ChatMessage key={i} item={item} />;
                 })}
               </div>
               <div className="sticky bottom-0 border-l">
@@ -128,9 +202,11 @@ const Message = () => {
                     onKeyPress={(e) => {
                       if (e.key === "Enter" && e.target.value) {
                         handleCreateMessage(e.target.value);
-                        setSelectedImage(null)
+                        setSelectedImage("");
+                        limpiar();
                       }
                     }}
+                    id="enter"
                     type="text"
                     className="bg-transparent border border-[#3b4054] rounded-full w-[90%] py-3 px-5"
                     placeholder="Type message..."
@@ -152,7 +228,7 @@ const Message = () => {
             </div>
           ) : (
             <div className="h-full space-y-5 flex flex-col justify-center items-center">
-              <ChatBubbleOutline sx={{ fontSize: "15rem" }} />
+              <ChatBubbleOutlineIcon sx={{ fontSize: "15rem" }} />
               <p className="text-xl font-semibold">No chat selected</p>
             </div>
           )}
